@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.mariadb.jdbc.MariaDbPoolDataSource;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,28 +15,72 @@ import java.util.List;
 @Repository
 @AllArgsConstructor
 public class EmployeeRepository {
-    private MariaDbPoolDataSource source;
-    private List<Employee> employees;
+    private final MariaDbPoolDataSource source;
+    private final List<Employee> employees;
 
-    public List<Employee> getFromDataBase() {
+
+    private List<Employee> employeeMapper(PreparedStatement statement) throws SQLException {
+        ResultSet resultSet = statement.executeQuery();
+        System.out.println(statement);
+        employees.clear();
+        while (resultSet.next()) {
+            employees.add(
+                    Employee.builder()
+                            .id(resultSet.getInt("employee_id"))
+                            .firstName(resultSet.getString("first_name"))
+                            .lastName(resultSet.getString("last_name"))
+                            .email(resultSet.getString("email"))
+                            .phoneNum(resultSet.getString("phone_number"))
+                            .hireDate(resultSet.getDate("hire_date"))
+                            .salary(resultSet.getBigDecimal("salary"))
+                            .commissionPc(resultSet.getBigDecimal("commission_pct"))
+                            .build()
+            );
+        }
+        return employees;
+    }
+
+    public List<Employee> getEmployeesBySomeString(String columnName, String condition) {
         try (Connection connection = source.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM employees");
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                employees.add(
-                        Employee.builder()
-                                .id(resultSet.getInt("employee_id"))
-                                .firstName(resultSet.getString("first_name"))
-                                .lastName(resultSet.getString("last_name"))
-                                .email(resultSet.getString("email"))
-                                .phoneNum(resultSet.getString("phone_number")).build()
-                );
-            }
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM employees WHERE " + columnName + "=" + "?");
+            statement.setString(1, condition);
+            employeeMapper(statement);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        for (Employee emp : employees) {
-            System.out.println(emp);
+        return employees;
+    }
+
+    public List<Employee> getEmployeesBySomeInt(String columnName, Integer someInt) {
+        try (Connection connection = source.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM employees WHERE " + columnName + "=" + "?");
+            statement.setInt(1, someInt);
+            employeeMapper(statement);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return employees;
+    }
+
+    public List<Employee> getEmployeesBySalary(String columnName, BigDecimal max, BigDecimal min) {
+        try (Connection connection = source.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM employees WHERE " + columnName + "<" + "? " + "AND " + columnName + ">" + "?");
+            statement.setBigDecimal(1, max);
+            statement.setBigDecimal(2, min);
+            employeeMapper(statement);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return employees;
+    }
+
+    public List<Employee> getAllEmployees() {
+        try (Connection connection = source.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM employees");
+            employeeMapper(statement);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return employees;
     }
