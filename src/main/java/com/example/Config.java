@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.dto.Country;
 import com.example.dto.Employee;
 import org.mariadb.jdbc.MariaDbPoolDataSource;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +26,12 @@ public class Config {
     }
 
     @Bean
-    public List<Employee> getFromDb() {
+    public List<Employee> getEmployees() {
+        return Collections.synchronizedList(new ArrayList<>());
+    }
+
+    @Bean
+    public List<Country> getCountries() {
         return Collections.synchronizedList(new ArrayList<>());
     }
 }

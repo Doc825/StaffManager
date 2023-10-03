@@ -21,26 +21,42 @@ public class EmployeeController {
     public List<Employee> getAllEmployees() {
         return repository.getAllEmployees();
     }
-    @GetMapping("/findByLastName/{condition}")
-    public List<Employee> getByLastName(@PathVariable String condition) {
-        return repository.getEmployeesBySomeString("last_name", condition);
-    }
+
     @GetMapping("/findByFirstName/{condition}")
     public List<Employee> getByFirstName(@PathVariable String condition) {
         return repository.getEmployeesBySomeString("first_name", condition);
     }
+
+    @GetMapping("/findByPartOfFirstName/{condition}")
+    public List<Employee> getByPartOfName(@PathVariable String condition) {
+        return repository.getEmployeesByPartOfName("first_name", condition);
+    }
+
+    @GetMapping("/findByLastName/{condition}")
+    public List<Employee> getByLastName(@PathVariable String condition) {
+        return repository.getEmployeesBySomeString("last_name", condition);
+    }
+
+    @GetMapping("/findByPartOfLastName/{condition}")
+    public List<Employee> getByPartOfLastName(@PathVariable String condition) {
+        return repository.getEmployeesByPartOfName("last_name", condition);
+    }
+
     @GetMapping("/findByEmail/{condition}")
     public List<Employee> getByEmail(@PathVariable String condition) {
         return repository.getEmployeesBySomeString("email", condition);
     }
+
     @GetMapping("/findByPhone/{condition}")
     public List<Employee> getByPhone(@PathVariable String condition) {
         return repository.getEmployeesBySomeString("phone_number", condition);
     }
+
     @GetMapping("/findById/{condition}")
     public List<Employee> getById(@PathVariable Integer condition) {
         return repository.getEmployeesBySomeInt("employee_id", condition);
     }
+
     @GetMapping("/findBySalaryRange/{max},{min}")
     public List<Employee> getBySalaryRange(@PathVariable BigDecimal max,
                                            @PathVariable BigDecimal min) {

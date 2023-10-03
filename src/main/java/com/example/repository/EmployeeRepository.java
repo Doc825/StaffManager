@@ -18,7 +18,6 @@ public class EmployeeRepository {
     private final MariaDbPoolDataSource source;
     private final List<Employee> employees;
 
-
     private List<Employee> employeeMapper(PreparedStatement statement) throws SQLException {
         ResultSet resultSet = statement.executeQuery();
         System.out.println(statement);
@@ -40,9 +39,31 @@ public class EmployeeRepository {
         return employees;
     }
 
+    public List<Employee> getAllEmployees() {
+        try (Connection connection = source.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM employees");
+            employeeMapper(statement);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return employees;
+    }
+
     public List<Employee> getEmployeesBySomeString(String columnName, String condition) {
         try (Connection connection = source.getConnection()) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM employees WHERE " + columnName + "=" + "?");
+            statement.setString(1, condition);
+            employeeMapper(statement);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return employees;
+    }
+
+    public List<Employee> getEmployeesByPartOfName(String columnName, String condition) {
+        try (Connection connection = source.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM employees WHERE " + columnName + " LIKE " + "%" + "?" + "%");
             statement.setString(1, condition);
             employeeMapper(statement);
         } catch (SQLException e) {
@@ -68,16 +89,6 @@ public class EmployeeRepository {
                     "SELECT * FROM employees WHERE " + columnName + "<" + "? " + "AND " + columnName + ">" + "?");
             statement.setBigDecimal(1, max);
             statement.setBigDecimal(2, min);
-            employeeMapper(statement);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return employees;
-    }
-
-    public List<Employee> getAllEmployees() {
-        try (Connection connection = source.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM employees");
             employeeMapper(statement);
         } catch (SQLException e) {
             throw new RuntimeException(e);
