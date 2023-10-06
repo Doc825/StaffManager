@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.dto.Country;
 import com.example.dto.Employee;
+import com.example.dto.EmployeeJobView;
 import org.mariadb.jdbc.MariaDbPoolDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,10 @@ public class Config {
 
     @Bean
     public List<Country> getCountries() {
+        return Collections.synchronizedList(new ArrayList<>());
+    }
+    @Bean
+    public List<EmployeeJobView> getEmployeeView() {
         return Collections.synchronizedList(new ArrayList<>());
     }
 }

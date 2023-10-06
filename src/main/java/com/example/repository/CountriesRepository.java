@@ -40,4 +40,15 @@ public class CountriesRepository {
         }
         return countries;
     }
+
+    public List<Country> getCountryByName(String countryName) {
+        try (Connection connection = source.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement("SELECT  * FROM countries WHERE country_name = ?");
+            statement.setString(1, countryName);
+            countryMapper(statement);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return countries;
+    }
 }
