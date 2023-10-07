@@ -67,4 +67,20 @@ public class EmployeeJobViewRepository {
         }
         return viewList;
     }
+    public List<EmployeeJobView> getEmployeeDetailsBySomeString(String columnName, String condition) {
+        try(Connection connection = source.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT first_name, last_name, department_name, job_title, region_name, country_name, state_province, city " +
+                            "FROM employees e JOIN departments d ON e.department_id = d.department_id " +
+                            "JOIN jobs j ON e.job_id = j.job_id JOIN locations l ON d.location_id = l.location_id " +
+                            "JOIN countries c ON l.country_id = c.country_id JOIN regions r ON c.region_id = r.region_id " +
+                            "WHERE " + "e." + columnName + " = " + condition + " " +
+                            "ORDER BY region_name, country_name, state_province");
+            System.out.println(statement);
+            viewMapper(statement);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return viewList;
+    }
 }
