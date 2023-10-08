@@ -1,6 +1,7 @@
 package com.example;
 
 import com.example.dto.Country;
+import com.example.dto.Department;
 import com.example.dto.Employee;
 import com.example.dto.EmployeeJobView;
 import org.mariadb.jdbc.MariaDbPoolDataSource;
@@ -35,8 +36,14 @@ public class Config {
     public List<Country> getCountries() {
         return Collections.synchronizedList(new ArrayList<>());
     }
+
     @Bean
     public List<EmployeeJobView> getEmployeeView() {
+        return Collections.synchronizedList(new ArrayList<>());
+    }
+
+    @Bean
+    public List<Department> getDepartments() {
         return Collections.synchronizedList(new ArrayList<>());
     }
 }

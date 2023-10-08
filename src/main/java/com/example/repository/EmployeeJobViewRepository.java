@@ -38,7 +38,7 @@ public class EmployeeJobViewRepository {
     }
 
     public List<EmployeeJobView> getAllEmployeesDetails() {
-        try(Connection connection = source.getConnection()) {
+        try (Connection connection = source.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT first_name, last_name, department_name, job_title, region_name, country_name, state_province, city " +
                             "FROM employees e JOIN departments d ON e.department_id = d.department_id " +
@@ -51,15 +51,17 @@ public class EmployeeJobViewRepository {
         }
         return viewList;
     }
+
     public List<EmployeeJobView> getEmployeeDetailsByPartOfName(String columnName, String partOfName) {
-        try(Connection connection = source.getConnection()) {
+        try (Connection connection = source.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT first_name, last_name, department_name, job_title, region_name, country_name, state_province, city " +
                             "FROM employees e JOIN departments d ON e.department_id = d.department_id " +
                             "JOIN jobs j ON e.job_id = j.job_id JOIN locations l ON d.location_id = l.location_id " +
                             "JOIN countries c ON l.country_id = c.country_id JOIN regions r ON c.region_id = r.region_id " +
-                            "WHERE " + "e." + columnName + " LIKE " + "'%" + partOfName + "%' " +
+                            "WHERE " + "e." + columnName + " LIKE ? " +
                             "ORDER BY region_name, country_name, state_province");
+            statement.setString(1, "'%" + partOfName + "%' ");
             System.out.println(statement);
             viewMapper(statement);
         } catch (SQLException e) {
@@ -67,15 +69,19 @@ public class EmployeeJobViewRepository {
         }
         return viewList;
     }
+
     public List<EmployeeJobView> getEmployeeDetailsBySomeString(String columnName, String condition) {
-        try(Connection connection = source.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT first_name, last_name, department_name, job_title, region_name, country_name, state_province, city " +
-                            "FROM employees e JOIN departments d ON e.department_id = d.department_id " +
-                            "JOIN jobs j ON e.job_id = j.job_id JOIN locations l ON d.location_id = l.location_id " +
-                            "JOIN countries c ON l.country_id = c.country_id JOIN regions r ON c.region_id = r.region_id " +
-                            "WHERE " + "e." + columnName + " = " + condition + " " +
-                            "ORDER BY region_name, country_name, state_province");
+        try (Connection connection = source.getConnection()) {
+            String query = "SELECT first_name, last_name, department_name, job_title, region_name, country_name, state_province, city " +
+                    "FROM employees e JOIN departments d ON e.department_id = d.department_id " +
+                    "JOIN jobs j ON e.job_id = j.job_id JOIN locations l ON d.location_id = l.location_id " +
+                    "JOIN countries c ON l.country_id = c.country_id JOIN regions r ON c.region_id = r.region_id " +
+                    "WHERE " + columnName + " = ? " +
+                    "ORDER BY region_name, country_name, state_province";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, condition);
+
             System.out.println(statement);
             viewMapper(statement);
         } catch (SQLException e) {
@@ -83,4 +89,5 @@ public class EmployeeJobViewRepository {
         }
         return viewList;
     }
+
 }
