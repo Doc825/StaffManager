@@ -16,7 +16,7 @@ import java.util.List;
 public class DepartmentController {
     private DepartmentRepository repository;
 
-    @GetMapping("/getByName/{departmentName}")
+    @GetMapping("/{departmentName}")
     public List<Department> getByName(@PathVariable String departmentName) {
         return repository.getDepartmentByName(departmentName);
     }

@@ -17,7 +17,7 @@ public class CountriesRepository {
     private final MariaDbPoolDataSource source;
     private List<Country> countries;
 
-    public List<Country> countryMapper(PreparedStatement statement) throws SQLException {
+    protected List<Country> countryMapper(PreparedStatement statement) throws SQLException {
         ResultSet resultSet = statement.executeQuery();
         countries.clear();
         while (resultSet.next()) {

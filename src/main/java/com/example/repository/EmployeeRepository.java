@@ -18,7 +18,7 @@ public class EmployeeRepository {
     private final MariaDbPoolDataSource source;
     private final List<Employee> employees;
 
-    private List<Employee> employeeMapper(PreparedStatement statement) throws SQLException {
+    protected List<Employee> employeeMapper(PreparedStatement statement) throws SQLException {
         ResultSet resultSet = statement.executeQuery();
         System.out.println(statement);
         employees.clear();

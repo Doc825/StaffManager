@@ -17,7 +17,7 @@ public class EmployeeJobViewRepository {
     private MariaDbPoolDataSource source;
     private List<EmployeeJobView> viewList;
 
-    public List<EmployeeJobView> viewMapper(PreparedStatement statement) throws SQLException {
+    protected List<EmployeeJobView> viewMapper(PreparedStatement statement) throws SQLException {
         ResultSet resultSet = statement.executeQuery();
         viewList.clear();
         while (resultSet.next()) {
