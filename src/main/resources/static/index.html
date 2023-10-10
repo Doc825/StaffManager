@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Staff Manager</title>
+    <script src="Scripts.js"></script>
+    <!--    <link rel="stylesheet" href="styles.css" />-->
+</head>
+
+<body>
+<div>
+    <button onclick="loadEmployees('/api/employeeDetails')"> Load employees</button>
+    <button onclick="cleanEmployees()">Clean up</button>
+    <input id="findByFirstName" type="text" class="form-control"
+           placeholder="First name or its part: Paul/ul" aria-label="Recipient's username"
+           aria-describedby="basic-addon2">
+    <button onclick="clearInput('findByLastName');cleanEmployees();findByName('findByFirstName')">Search</button>
+
+    <input id="findByLastName" type="text" class="form-control"
+           placeholder="Last name or its part: Fay/F" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <button onclick="clearInput('findByFirstName');cleanEmployees();findByName('findByLastName')">Search</button>
+</div>
+<div>
+
+</div>
+<div>
+    <table id="employeeView">
+        <thead>
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Department</th>
+            <th>Job title</th>
+            <th>Region</th>
+            <th>Country</th>
+            <th>State</th>
+            <th>City</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<!--<table id="html-data-table">-->
+<!--    <thead>-->
+<!--    <tr>-->
+
+<!--        <th >Citizen birthday</th>-->
+<!--        <th >Citizen id</th>-->
+<!--        <th >Citizen address</th>-->
+<!--        <th >Citizen country</th>-->
+<!--        <th >Citizen firstName</th>-->
+<!--    </tr>-->
+
+<!--    </thead>-->
+<!--    <tbody id="table-body">-->
+<!--    </tbody>-->
+<!--</table>-->
+</body>
+
+</html>

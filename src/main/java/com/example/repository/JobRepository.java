@@ -17,6 +17,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class JobRepository {
     private List<Job> jobs;
     private MariaDbPoolDataSource source;
+
     protected List<Job> jobsMapper(PreparedStatement statement) throws SQLException {
         ResultSet resultSet = statement.executeQuery();
         jobs.clear();
@@ -30,8 +31,9 @@ public class JobRepository {
         }
         return new CopyOnWriteArrayList<>(jobs);
     }
+
     public List<Job> getAllJobs() {
-        try(Connection connection = source.getConnection()) {
+        try (Connection connection = source.getConnection()) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM jobs");
             jobsMapper(statement);
         } catch (SQLException e) {
@@ -39,8 +41,9 @@ public class JobRepository {
         }
         return jobs;
     }
+
     public List<Job> getJobByTitle(String jobTitle) {
-        try(Connection connection = source.getConnection()) {
+        try (Connection connection = source.getConnection()) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM jobs WHERE job_title = ?");
             statement.setString(1, jobTitle);
             jobsMapper(statement);
