@@ -15,10 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 public class JobController {
     private JobRepository repository;
+
     @GetMapping
     public List<Job> getAllJobs() {
         return repository.getAllJobs();
     }
+
     @GetMapping("/{title}")
     public List<Job> getJobByTitle(@PathVariable String title) {
         return repository.getJobByTitle(title);
