@@ -1,0 +1,107 @@
+const CURRENT_URL = window.location.host;
+
+function loadEmployees(link) {
+    fetch('http://' + CURRENT_URL + link)
+        .then(response => response.json())
+        .then(listOfEmployees => {
+            const tbodyElement = document.querySelector('#employeeView');
+
+            if (tbodyElement) {
+                listOfEmployees.forEach(function (employee) {
+                    const newRowElement = generateNewRow([
+                        employee['firstName'],
+                        employee['lastName'],
+                        employee['departmentName'],
+                        employee['jobTitle'],
+                        employee['regionName'],
+                        employee['countryName'],
+                        employee['state'],
+                        employee['city']
+                    ]);
+                    tbodyElement.appendChild(newRowElement);
+                });
+            } else {
+                console.error('Error: tbodyElement is null');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching employee details:', error);
+        });
+}
+
+function generateNewRow(value) {
+    const trElement = document.createElement('tr');
+    value.forEach(function (data) {
+        const td = document.createElement('td');
+        td.textContent = data;
+        trElement.appendChild(td);
+    });
+    return trElement;
+}
+
+function cleanEmployees() {
+    const tbodyElement = document.querySelector('#employeeView');
+    while (tbodyElement.children.length > 1) {
+        tbodyElement.removeChild(tbodyElement.lastChild);
+    }
+}
+
+function findByName(element) {
+    let username = document.getElementById(element).value;
+    console.log('Searching for:', username);
+    loadEmployees('/api/employeeDetails/' + element + '/' + username)
+}
+
+function clearInput(element) {
+    document.getElementById(element).value = '';
+}
+
+
+function addNewUser() {
+    var newUser = {
+        "id": $("#newId").val(),
+        "address": $("#newAddress").val(),
+        "country": $("#country-selector").val(),
+        "birthDate": $("#newBirthDate").val() + " 00:00:00",
+        "firstname": $("#newFirstName").val(),
+    }
+
+    var options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser)
+    }
+
+    fetch('http://' + CURRENT_URL + "/citizens", options)
+        .then(response => response.json())
+        .then(listOfCitizens => {
+            console.log("user was added! " + listOfCitizens)
+        }).catch(error => {
+        console.log("user not added! " + error)
+    })
+}
+
+function getAllCountries() {
+    console.log("all countries list")
+    fetch(
+        "http://" + CURRENT_URL + "/countries"
+    )
+        .then(response => {
+            console.log(response);
+            return response.json();
+        })
+        .then(function getAllCountries(countries) {
+            const countriesList = document.getElementById("country-selector");
+            const sortedByAlphabetCountries = countries.sort();
+            for (let index in sortedByAlphabetCountries) {
+                let option = document.createElement("option");
+                option.setAttribute("value", sortedByAlphabetCountries[index]);
+                let optionText = document.createTextNode(sortedByAlphabetCountries[index]);
+                option.appendChild(optionText);
+                countriesList.appendChild(option);
+            }
+            return countriesList;
+        });
+}

@@ -21,18 +21,16 @@ public class EmployeeJobViewRepository {
         ResultSet resultSet = statement.executeQuery();
         viewList.clear();
         while (resultSet.next()) {
-            viewList.add(
-                    EmployeeJobView.builder()
-                            .firstName(resultSet.getString("first_name"))
-                            .lastName(resultSet.getString("last_name"))
-                            .departmentName(resultSet.getString("department_name"))
-                            .jobTitle(resultSet.getString("job_title"))
-                            .regionName(resultSet.getString("region_name"))
-                            .countryName(resultSet.getString("country_name"))
-                            .state(resultSet.getString("state_province"))
-                            .city(resultSet.getString("city"))
-                            .build()
-            );
+            viewList.add(EmployeeJobView.builder()
+                    .firstName(resultSet.getString("first_name"))
+                    .lastName(resultSet.getString("last_name"))
+                    .departmentName(resultSet.getString("department_name"))
+                    .jobTitle(resultSet.getString("job_title"))
+                    .regionName(resultSet.getString("region_name"))
+                    .countryName(resultSet.getString("country_name"))
+                    .state(resultSet.getString("state_province"))
+                    .city(resultSet.getString("city"))
+                    .build());
         }
         return viewList;
     }
@@ -59,9 +57,8 @@ public class EmployeeJobViewRepository {
                             "FROM employees e JOIN departments d ON e.department_id = d.department_id " +
                             "JOIN jobs j ON e.job_id = j.job_id JOIN locations l ON d.location_id = l.location_id " +
                             "JOIN countries c ON l.country_id = c.country_id JOIN regions r ON c.region_id = r.region_id " +
-                            "WHERE " + "e." + columnName + " LIKE ? " +
-                            "ORDER BY region_name, country_name, state_province");
-            statement.setString(1, "'%" + partOfName + "%' ");
+                            "WHERE " + columnName + " LIKE ? ORDER BY region_name, country_name, state_province");
+            statement.setString(1, "%" + partOfName + "%");
             System.out.println(statement);
             viewMapper(statement);
         } catch (SQLException e) {
@@ -76,8 +73,7 @@ public class EmployeeJobViewRepository {
                     "FROM employees e JOIN departments d ON e.department_id = d.department_id " +
                     "JOIN jobs j ON e.job_id = j.job_id JOIN locations l ON d.location_id = l.location_id " +
                     "JOIN countries c ON l.country_id = c.country_id JOIN regions r ON c.region_id = r.region_id " +
-                    "WHERE " + columnName + " = ? " +
-                    "ORDER BY region_name, country_name, state_province";
+                    "WHERE " + columnName + " = ? ORDER BY region_name, country_name, state_province";
 
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, condition);
