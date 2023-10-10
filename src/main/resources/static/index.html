@@ -21,6 +21,17 @@
     <button onclick="clearInput('findByFirstName');cleanEmployees();findByName('findByLastName')">Search</button>
 </div>
 <div>
+    <input id="findByRegion" type="text" class="form-control"
+           placeholder="Enter region" aria-label="Recipient's username"
+           aria-describedby="basic-addon2">
+    <button onclick="clearInput('findByCity');cleanEmployees();findByName('findByRegion')">Search</button>
+
+    <input id="findByCity" type="text" class="form-control"
+           placeholder="Enter city" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <button onclick="clearInput('findByRegion');cleanEmployees();findByName('findByCity')">Search</button>
+</div>
+
+<div>
 
 </div>
 <div>

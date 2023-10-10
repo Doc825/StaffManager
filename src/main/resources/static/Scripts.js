@@ -51,6 +51,16 @@ function findByName(element) {
     console.log('Searching for:', username);
     loadEmployees('/api/employeeDetails/' + element + '/' + username)
 }
+function findByRegion(element) {
+    let region = document.getElementById(element).value;
+    console.log('Searching by region: ', region);
+    loadEmployees('/api/regions/' + region)
+}
+function findByCity(element) {
+    let city = document.getElementById(element).value;
+    console.log('Searching by city: ', city);
+    loadEmployees('api/locations/' + city)
+}
 
 function clearInput(element) {
     document.getElementById(element).value = '';
