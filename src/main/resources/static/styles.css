@@ -1,0 +1,54 @@
+
+#employeeView {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#employeeView th,
+#employeeView td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+#employeeView th {
+    background-color: #7ca791;
+}
+
+#employeeView tr:hover {
+    background-color: #7ca791;
+}
+
+
+#searchByNameDiv,
+#searchByCityDiv{
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+#searchByNameDiv button,
+#searchByCityDiv button{
+    background-color: #7ca791;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#searchByNameDiv input,
+#searchByCityDiv input{
+    padding: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
