@@ -29,7 +29,8 @@
 }
 
 #searchByNameDiv button,
-#searchByCityDiv button{
+#searchByCityDiv button,
+#language {
     background-color: #7ca791;
     color: black;
     border: none;

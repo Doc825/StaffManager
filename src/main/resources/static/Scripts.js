@@ -1,4 +1,7 @@
 const CURRENT_URL = window.location.host;
+function changeLanguage(link) {
+    window.location.href = 'http://' + CURRENT_URL + link;
+}
 
 function loadEmployees(link) {
     fetch('http://' + CURRENT_URL + link)
