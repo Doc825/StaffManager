@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 @Builder
-public class EmployeeJobView {
+public class CustomerView {
     private String firstName;
     private String lastName;
     private String departmentName;

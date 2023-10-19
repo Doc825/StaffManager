@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class Job {
-    private  String id;
+    private String id;
     private String jobTitle;
     private BigDecimal minSalary;
     private BigDecimal maxSalary;

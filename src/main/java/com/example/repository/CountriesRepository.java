@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Repository
 @AllArgsConstructor
@@ -28,7 +29,7 @@ public class CountriesRepository {
                             .build()
             );
         }
-        return countries;
+        return new CopyOnWriteArrayList<>(countries);
     }
 
     public List<Country> getAllCountries() {

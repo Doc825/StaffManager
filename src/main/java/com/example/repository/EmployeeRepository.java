@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Repository
 @AllArgsConstructor
@@ -29,14 +30,20 @@ public class EmployeeRepository {
                             .firstName(resultSet.getString("first_name"))
                             .lastName(resultSet.getString("last_name"))
                             .email(resultSet.getString("email"))
-                            .phoneNum(resultSet.getString("phone_number"))
+                            .phone(resultSet.getString("phone_number"))
                             .hireDate(resultSet.getDate("hire_date"))
                             .salary(resultSet.getBigDecimal("salary"))
-                            .commissionPc(resultSet.getBigDecimal("commission_pct"))
+                            .department(resultSet.getString("department_name"))
+                            .jobTitle(resultSet.getString("job_title"))
+                            .region(resultSet.getString("region_name"))
+                            .country(resultSet.getString("country_name"))
+                            .state(resultSet.getString("state_province"))
+                            .city(resultSet.getString("city"))
+                            .commissionPercent(resultSet.getBigDecimal("commission_pct"))
                             .build()
             );
         }
-        return employees;
+        return new CopyOnWriteArrayList<>(employees);
     }
 
     public List<Employee> getAllEmployees() {

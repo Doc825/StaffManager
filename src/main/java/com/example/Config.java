@@ -1,18 +1,11 @@
 package com.example;
 
-import com.example.dto.Country;
-import com.example.dto.Department;
-import com.example.dto.Employee;
-import com.example.dto.EmployeeJobView;
 import org.mariadb.jdbc.MariaDbPoolDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 
 @Configuration
@@ -25,25 +18,5 @@ public class Config {
         MariaDbPoolDataSource source = new MariaDbPoolDataSource();
         source.setUrl(dbUrl);
         return source;
-    }
-
-    @Bean
-    public List<Employee> getEmployees() {
-        return Collections.synchronizedList(new ArrayList<>());
-    }
-
-    @Bean
-    public List<Country> getCountries() {
-        return Collections.synchronizedList(new ArrayList<>());
-    }
-
-    @Bean
-    public List<EmployeeJobView> getEmployeeView() {
-        return Collections.synchronizedList(new ArrayList<>());
-    }
-
-    @Bean
-    public List<Department> getDepartments() {
-        return Collections.synchronizedList(new ArrayList<>());
     }
 }

@@ -28,17 +28,17 @@ public class RegionRepository {
                     .build()
             );
         }
-        return regionList;
+        return new CopyOnWriteArrayList<>(regionList);
     }
 
     public List<Region> getAllRegions() {
-        try(Connection connection = source.getConnection()) {
+        try (Connection connection = source.getConnection()) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM regions");
             regionMapper(statement);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return new CopyOnWriteArrayList<>(regionList);
+        return regionList;
     }
 
     public List<Region> getRegionByName(String name) {
@@ -49,6 +49,6 @@ public class RegionRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return new CopyOnWriteArrayList<>(regionList);
+        return regionList;
     }
 }

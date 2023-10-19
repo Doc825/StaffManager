@@ -1,6 +1,6 @@
 package com.example.repository;
 
-import com.example.dto.EmployeeJobView;
+import com.example.dto.CustomerView;
 import lombok.AllArgsConstructor;
 import org.mariadb.jdbc.MariaDbPoolDataSource;
 import org.springframework.stereotype.Repository;
@@ -10,18 +10,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Repository
 @AllArgsConstructor
-public class EmployeeJobViewRepository {
+public class CustomerViewRepository {
     private MariaDbPoolDataSource source;
-    private List<EmployeeJobView> viewList;
+    private List<CustomerView> viewList;
 
-    protected List<EmployeeJobView> viewMapper(PreparedStatement statement) throws SQLException {
+    protected List<CustomerView> viewMapper(PreparedStatement statement) throws SQLException {
         ResultSet resultSet = statement.executeQuery();
         viewList.clear();
         while (resultSet.next()) {
-            viewList.add(EmployeeJobView.builder()
+            viewList.add(CustomerView.builder()
                     .firstName(resultSet.getString("first_name"))
                     .lastName(resultSet.getString("last_name"))
                     .departmentName(resultSet.getString("department_name"))
@@ -32,10 +33,10 @@ public class EmployeeJobViewRepository {
                     .city(resultSet.getString("city"))
                     .build());
         }
-        return viewList;
+        return new CopyOnWriteArrayList<>(viewList);
     }
 
-    public List<EmployeeJobView> getAllEmployeesDetails() {
+    public List<CustomerView> getAllEmployeesDetails() {
         try (Connection connection = source.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT first_name, last_name, department_name, job_title, region_name, country_name, state_province, city " +
@@ -50,7 +51,7 @@ public class EmployeeJobViewRepository {
         return viewList;
     }
 
-    public List<EmployeeJobView> getEmployeeDetailsByPartOfName(String columnName, String partOfName) {
+    public List<CustomerView> getEmployeeDetailsByPartOfName(String columnName, String partOfName) {
         try (Connection connection = source.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "SELECT first_name, last_name, department_name, job_title, region_name, country_name, state_province, city " +
@@ -67,7 +68,7 @@ public class EmployeeJobViewRepository {
         return viewList;
     }
 
-    public List<EmployeeJobView> getEmployeeDetailsBySomeString(String columnName, String condition) {
+    public List<CustomerView> getEmployeeDetailsBySomeString(String columnName, String condition) {
         try (Connection connection = source.getConnection()) {
             String query = "SELECT first_name, last_name, department_name, job_title, region_name, country_name, state_province, city " +
                     "FROM employees e JOIN departments d ON e.department_id = d.department_id " +

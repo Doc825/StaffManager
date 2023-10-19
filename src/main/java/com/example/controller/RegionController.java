@@ -20,6 +20,7 @@ public class RegionController {
     public List<Region> getAllRegions() {
         return repository.getAllRegions();
     }
+
     @GetMapping("/{name}")
     public List<Region> getRegionByName(@PathVariable String name) {
         return repository.getRegionByName(name);

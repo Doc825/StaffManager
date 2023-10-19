@@ -15,10 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 public class LocationController {
     private LocationRepository repository;
+
     @GetMapping
     public List<Location> getAllLocations() {
         return repository.getAllLocations();
     }
+
     @GetMapping("/{city}")
     public List<Location> getLocationsByName(@PathVariable String city) {
         return repository.getLocationsByCity(city);

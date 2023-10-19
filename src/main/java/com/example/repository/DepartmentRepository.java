@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Repository
 @AllArgsConstructor
@@ -29,7 +30,7 @@ public class DepartmentRepository {
                             .build()
             );
         }
-        return departments;
+        return new CopyOnWriteArrayList<>(departments);
     }
 
     public List<Department> getDepartmentByName(String name) {
