@@ -1,0 +1,82 @@
+:root {
+    --basicColor: #7ca791;
+    --pointedColor: darkred;
+    --textColor: black;
+    --backgroundColor: #cccccc;
+    --buttonTextColor: #090707;
+    --buttonBorderColor: white;
+    --inputBorderColor: #090707;
+}
+
+body {
+    background-color: var(--backgroundColor);
+}
+
+#employeeView {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--textColor);
+}
+
+#employeeView th {
+    background-color: var(--basicColor);
+    color: var(--textColor);
+}
+
+#employeeView th,
+#employeeView td {
+    border: 1px solid #ffffff;
+    padding: 8px;
+    text-align: center;
+}
+
+#employeeView th,
+#employeeView tr {
+    background-color: var(--basicColor);
+    color: var(--textColor);
+}
+
+#employeeView th:hover,
+#employeeView tr:hover,
+#searchByNameDiv button:hover,
+#searchByCityDiv button:hover,
+#language:hover,
+#stylesButton:hover {
+    background-color: var(--pointedColor);
+    color: bisque;
+    border: 1px solid black;
+}
+
+#searchByNameDiv,
+#searchByCityDiv,
+#languageDiv {
+    background-color: var(--basicColor);
+    padding: 15px;
+}
+
+#searchByNameDiv button,
+#searchByCityDiv button,
+#language,
+#stylesButton {
+    background-color: var(--basicColor);
+    color: var(--buttonTextColor);
+    border: 1px solid var(--buttonBorderColor);
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#searchByNameDiv input,
+#searchByCityDiv input {
+    padding: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--inputBorderColor);
+}
