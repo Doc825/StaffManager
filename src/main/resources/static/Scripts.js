@@ -71,7 +71,7 @@ function clearInput(element) {
 
 
 function addNewUser() {
-    var newUser = {
+    let newUser = {
         "id": $("#newId").val(),
         "address": $("#newAddress").val(),
         "country": $("#country-selector").val(),
@@ -79,7 +79,7 @@ function addNewUser() {
         "firstname": $("#newFirstName").val(),
     }
 
-    var options = {
+    let options = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -117,4 +117,13 @@ function getAllCountries() {
             }
             return countriesList;
         });
+}
+function changeTheme() {
+    let link = document.getElementById("theme");
+    if (link.href.includes("styles.css")) {
+        link.href= "darkThemeStyle.css";
+    }
+    else {
+        link.href = "styles.css"
+    }
 }

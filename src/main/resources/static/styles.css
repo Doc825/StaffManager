@@ -15,25 +15,31 @@
     background-color: #7ca791;
 }
 
-#employeeView tr:hover {
+#employeeView th:hover,
+#employeeView tr:hover,
+#searchByNameDiv button:hover,
+#searchByCityDiv button:hover,
+#language:hover {
     background-color: #7ca791;
+    border: 1px solid black;
 }
 
 
 #searchByNameDiv,
-#searchByCityDiv{
+#searchByCityDiv,
+#languageDiv {
     background-color: white;
     padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
 }
 
 #searchByNameDiv button,
 #searchByCityDiv button,
-#language {
+#language,
+#stylesButton {
     background-color: #7ca791;
     color: black;
-    border: none;
+    border: 1px solid black;
+    border-radius: 5px;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;

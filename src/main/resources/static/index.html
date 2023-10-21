@@ -4,12 +4,13 @@
 <head>
     <title>Staff Manager</title>
     <script src="Scripts.js"></script>
-        <link rel="stylesheet" href="styles.css" />
+        <link id="theme" rel="stylesheet" href=styles.css />
 </head>
 
 <body>
-<div>
+<div id="languageDiv">
     <button id="language" onclick="changeLanguage('/indexRu.html')">Ru</button>
+    <button id="stylesButton" onclick="changeTheme()">Change Theme</button>
 </div>
 <div id="searchByNameDiv">
     <button onclick="cleanEmployees();loadEmployees('/api/employeeDetails')"> Load employees</button>
