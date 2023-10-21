@@ -2,57 +2,59 @@
 <html lang="en">
 
 <head>
-  <title>Staff Manager</title>
-  <script src="Scripts.js"></script>
-  <link rel="stylesheet" href="styles.css" />
-  <meta charset="UTF-8">
+    <title>Staff Manager</title>
+    <script src="Scripts.js"></script>
+    <link id="theme" rel="stylesheet" href=styles.css/>
+    <meta charset="UTF-8">
 </head>
 
 <body>
-<div>
-  <button id="language" onclick="changeLanguage('/index.html')">En</button>
+<div id="languageDiv">
+    <button id="language" onclick="changeLanguage('/index.html')">En</button>
+    <button id="stylesButton" onclick="changeTheme()">Сменить тему</button>
 </div>
 <div id="searchByNameDiv">
-  <button onclick="cleanEmployees();loadEmployees('/api/employeeDetails')">Все сотрудники</button>
-  <button onclick="cleanEmployees()">Очистить</button>
-  <input id="findByFirstName" type="text" class="form-control"
-         placeholder="Имя полностью или частично: Paul/ul" aria-label="Recipient's username"
-         aria-describedby="basic-addon2">
-  <button onclick="clearInput('findByLastName');cleanEmployees();findByName('findByFirstName')">Поиск</button>
+    <button onclick="cleanEmployees();loadEmployees('/api/employeeDetails')">Все сотрудники</button>
+    <button onclick="cleanEmployees()">Очистить</button>
+    <input id="findByFirstName" type="text" class="form-control"
+           placeholder="Имя полностью или частично: Paul/ul" aria-label="Recipient's username"
+           aria-describedby="basic-addon2">
+    <button onclick="clearInput('findByLastName');cleanEmployees();findByName('findByFirstName')">Поиск</button>
 
-  <input id="findByLastName" type="text" class="form-control"
-         placeholder="Фамилия полностью или частично: Fay/F" aria-label="Recipient's username" aria-describedby="basic-addon2">
-  <button onclick="clearInput('findByFirstName');cleanEmployees();findByName('findByLastName')">Поиск</button>
+    <input id="findByLastName" type="text" class="form-control"
+           placeholder="Фамилия полностью или частично: Fay/F" aria-label="Recipient's username"
+           aria-describedby="basic-addon2">
+    <button onclick="clearInput('findByFirstName');cleanEmployees();findByName('findByLastName')">Поиск</button>
 </div>
 <div id="searchByCityDiv">
-  <input id="findByRegion" type="text" class="form-control"
-         placeholder="Регион" aria-label="Recipient's username"
-         aria-describedby="basic-addon2">
-  <button onclick="clearInput('findByCity');cleanEmployees();findByName('findByRegion')">Поиск</button>
+    <input id="findByRegion" type="text" class="form-control"
+           placeholder="Регион" aria-label="Recipient's username"
+           aria-describedby="basic-addon2">
+    <button onclick="clearInput('findByCity');cleanEmployees();findByName('findByRegion')">Поиск</button>
 
-  <input id="findByCity" type="text" class="form-control"
-         placeholder="Город" aria-label="Recipient's username" aria-describedby="basic-addon2">
-  <button onclick="clearInput('findByRegion');cleanEmployees();findByName('findByCity')">Поиск</button>
+    <input id="findByCity" type="text" class="form-control"
+           placeholder="Город" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <button onclick="clearInput('findByRegion');cleanEmployees();findByName('findByCity')">Поиск</button>
 </div>
 
 <div>
 
 </div>
 <div>
-  <table id="employeeView">
-    <thead>
-    <tr>
-      <th>Имя</th>
-      <th>Фамилия</th>
-      <th>Отдел</th>
-      <th>Должность</th>
-      <th>Регион</th>
-      <th>Страна</th>
-      <th>Штат/провинция</th>
-      <th>Город</th>
-    </tr>
-    </thead>
-  </table>
+    <table id="employeeView">
+        <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отдел</th>
+            <th>Должность</th>
+            <th>Регион</th>
+            <th>Страна</th>
+            <th>Штат/провинция</th>
+            <th>Город</th>
+        </tr>
+        </thead>
+    </table>
 </div>
 <!--<table id="html-data-table">-->
 <!--    <thead>-->
